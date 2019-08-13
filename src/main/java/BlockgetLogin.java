@@ -10,14 +10,14 @@ public class BlockgetLogin {
     private final static String PRIVATE_KEY = "5JMpT5C75rcAmuUB81mqVBXbmL1BKea4MYwVK6voMQLvigLKfrE";
 
     @Autowired
-    private BlockgetConnection connectionExample;
+   // private BlockgetConnection connectionExample;
 
     /**
      * Example of logging into the DECENT test network with private key.
      *
      * @return Credentials to use for other API calls.
      */
-    public Credentials login() {
+    public Credentials login(BlockgetConnection connectionExample) {
 
         final DCoreApi dcoreApi = connectionExample.connect();
 

@@ -1,6 +1,9 @@
 import ch.decent.sdk.model.Account;
+import ch.decent.sdk.model.NftData;
+import ch.decent.sdk.model.NftModel;
 
 import java.io.*;
+import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 
@@ -12,13 +15,27 @@ public class BlockgetStart {
         Account myAcct = anAccount.getAccountByName("trevor3");
        System.out.println("hellow from blockget");
        System.out.println("registrar acct = " + myAcct.getRegistrar());
+
+       String hashcode = "QmZfPNDiujH2KFuJhB47tAdup2ZY54611wiH6i15ZwTipa";
+        BlockgetNftMgr bnm = new BlockgetNftMgr();
+        String accountName = "trevor3";
+        List<NftData<? extends NftModel>> result=bnm.ConfirmNFT(myAcct);
+        NftModel c = result.get(0).getData();
+        List<Object> d = c.values();
+        String hashcodedata = (String) d.get(2);
+        int g=1;
+        //bnm.create("BGT"); // blockget token
+
+       // bnm.issue("BGT", hashcode);
+
+
      //   System.out.println("name acct = " + myAcct.getName());
-        String serverName = args[0];
-        int port = Integer.parseInt(args[1]);
-        BlockgetSocket bs = new BlockgetSocket();
-        bs.addData(serverName, port);
+   //     String serverName = args[0];
+   //     int port = Integer.parseInt(args[1]);
+   //     BlockgetSocket bs = new BlockgetSocket();
+   //     bs.addData(serverName, port);
      //   String fileName = "/home/trevor/decent/Master5/out/artifacts/Master5_main_jar/socketdata.txt";
-        String fileName = "./socketdata.txt";
+     //   String fileName = "./socketdata.txt";
 
 /*
         File file = new File(fileName);

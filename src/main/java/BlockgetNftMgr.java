@@ -28,9 +28,13 @@ public class BlockgetNftMgr {
      * @return Transaction confirmation.
      */
     public TransactionConfirmation create(String symbol) {
+
+        connectionExample = new BlockgetConnection();
+        loginExample = new BlockgetLogin();
+
         final DCoreApi dcoreApi = connectionExample.connect();
-        final Credentials credentials = loginExample.login();
-        final String description = "Creating my new token";
+        final Credentials credentials = loginExample.login(connectionExample);
+        final String description = "BGT Token";
 
         return dcoreApi.getNftApi()
                 .create(
@@ -50,9 +54,11 @@ public class BlockgetNftMgr {
      * @param symbol String version of the NFT symbol.
      * @return Transaction confirmation.
      */
-    public TransactionConfirmation issue(String symbol) {
+    public TransactionConfirmation issue(String symbol, String cid) {
+        connectionExample = new BlockgetConnection();
+        loginExample = new BlockgetLogin();
         final DCoreApi dcoreApi = connectionExample.connect();
-        final Credentials credentials = loginExample.login();
+        final Credentials credentials = loginExample.login(connectionExample);
         final AssetAmount dctAssetAmount = new AssetAmount(AMOUNT_OF_DCT_REQUIRED_FOR_NFT_ISSUE);
         final Fee initialFee = new Fee(dctAssetAmount.getAssetId(), AMOUNT_OF_DCT_REQUIRED_FOR_NFT_ISSUE);
 
@@ -61,7 +67,7 @@ public class BlockgetNftMgr {
                         credentials,
                         symbol,
                         credentials.getAccount(),
-                        new BlockgetNft(5, false),
+                        new BlockgetNft(5, false, cid),
                         null,
                         initialFee)
                 .blockingGet();
@@ -74,10 +80,12 @@ public class BlockgetNftMgr {
      * @return Transaction confirmation.
      */
     public TransactionConfirmation sendToken(String receiverAccountName) {
+        connectionExample = new BlockgetConnection();
+        loginExample = new BlockgetLogin();
         final DCoreApi dcoreApi = connectionExample.connect();
-        final Credentials credentials = loginExample.login();
+        final Credentials credentials = loginExample.login(connectionExample);
         final Account receiver = accountExample.getAccountByName(receiverAccountName);
-        final List<NftData<? extends NftModel>> result = getNftByAccount(credentials.getAccount());
+        final List<NftData<? extends NftModel>> result = getNftByAccount(credentials.getAccount(), connectionExample);
 
         return dcoreApi.getNftApi()
                 .transfer(
@@ -87,15 +95,31 @@ public class BlockgetNftMgr {
                 .blockingGet();
     }
 
+    public List<NftData<? extends NftModel>> ConfirmNFT(Account receiver) {
+        connectionExample = new BlockgetConnection();
+        loginExample = new BlockgetLogin();
+        final DCoreApi dcoreApi = connectionExample.connect();
+        final Credentials credentials = loginExample.login(connectionExample);
+      //  final Account receiver = accountExample.getAccountByName(receiverAccountName);
+        final List<NftData<? extends NftModel>> result = getNftByAccount(credentials.getAccount(), connectionExample);
+
+       return result;
+    }
+
+
     /**
      * Search for the NFT object by the owner.
      *
      * @param account ChainObject account chain object.
      * @return Nft object.
      */
-    public List<NftData<? extends NftModel>> getNftByAccount(ChainObject account) {
+    public List<NftData<? extends NftModel>> getNftByAccount(ChainObject account, BlockgetConnection connectionExample) {
+
         final DCoreApi dcoreApi = connectionExample.connect();
 
         return dcoreApi.getNftApi().getNftBalances(account).blockingGet();
     }
+
+
+
 }

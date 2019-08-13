@@ -14,8 +14,7 @@ public class BlockgetAccount {
     // connection to accounts
     private static final Long AMOUNT_OF_DCT_REQUIRED_FOR_CREATION = 100000L;
 
-    @Autowired
-    private BlockgetConnection connectionExample;
+
     @Autowired
     private BlockgetLogin loginExample;
     @Autowired
@@ -29,7 +28,7 @@ public class BlockgetAccount {
      */
     public Account getAccountByName(String accountName) {
 
-        connectionExample = new BlockgetConnection();
+        BlockgetConnection connectionExample = new BlockgetConnection();
         final DCoreApi dcoreApi = connectionExample.connect();
 
         return dcoreApi
@@ -46,8 +45,9 @@ public class BlockgetAccount {
      */
     public TransactionConfirmation createAccount(String newAccountName) {
 
+        BlockgetConnection connectionExample = new BlockgetConnection();
         final DCoreApi dcoreApi = connectionExample.connect();
-        final Credentials credentials = loginExample.login();
+        final Credentials credentials = loginExample.login(connectionExample);
         final Address newAccountPublicKey = generateKeys.generateKeys();
         final AssetAmount dctAssetAmount = new AssetAmount(AMOUNT_OF_DCT_REQUIRED_FOR_CREATION);
         final Fee initialFee = new Fee(dctAssetAmount.getAssetId(), AMOUNT_OF_DCT_REQUIRED_FOR_CREATION);

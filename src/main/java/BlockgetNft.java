@@ -10,15 +10,22 @@ public final class BlockgetNft implements NftModel {
 
     public int size;
     public boolean consumed;
+    public String cid;
 
-    public BlockgetNft(int size, boolean consumed) {
+    public BlockgetNft(int size, boolean consumed, String cid) {
         this.size = size;
         this.consumed = consumed;
+        this.cid = cid;
     }
 
     public int getSize() {
         return size;
     }
+
+    public String getCid() {
+        return cid;
+    }
+
 
     public boolean isConsumed() {
         return consumed;
