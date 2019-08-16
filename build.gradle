@@ -1,12 +1,20 @@
-plugins {
-    id 'java'
-}
+apply plugin: 'java'
+apply plugin: 'com.google.protobuf'
+apply plugin: 'idea'
 
 group 'com.blockget.Master5'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
-
+subprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
+    }
+}
 
 allprojects {
     repositories {
@@ -23,6 +31,17 @@ dependencies {
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-ap
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
       //api  'org.slf4j:slf4j-api:1.7.26'
+    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-gradle-plugin
+//    compile group: 'com.google.protobuf', name: 'protobuf-gradle-plugin', version: '0.8.10'
+
+    implementation "io.grpc:grpc-protobuf:1.23.0"
+    implementation "io.grpc:grpc-stub:1.23.0"
+    implementation "io.grpc:grpc-netty-shaded:1.23.0"
+
+    compileOnly "javax.annotation:javax.annotation-api:1.2"
+    // https://mvnrepository.com/artifact/io.grpc/grpc-all
+    //  implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+  //  implementation "io.grpc:grpc-stub:${grpcVersion}"
 
 // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl
   //  compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.12.0'
@@ -32,18 +51,35 @@ dependencies {
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.26'
 // https://mvnrepository.com/artifact/commons-io/commons-io
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
-    compile files('libs/commons-io-2.6.jar')
+  //  compile files('libs/commons-io-2.6.jar')
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
     implementation 'com.github.DECENTfoundation:DCoreKt-SDK:2.3.1'
 
 }
 
-
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:3.9.0" }
+    plugins {
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:1.23.0" }
+    }
+    generateProtoTasks {
+        all()*.plugins { grpc {} }
+    }
+}
 
 jar {
   //  from {
    //     configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
    // }
     manifest { attributes 'Main-Class': 'BlockgetStart' }
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
+    }
 }

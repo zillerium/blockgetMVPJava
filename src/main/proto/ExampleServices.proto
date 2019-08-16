@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package com.blockget.grpc;
+
+option java_multiple_files = true;
+
+message HelloRequest {
+    string firstname = 1;
+    string lastname = 2;
+    int64 age = 3;
+}
+
+message HelloResponse {
+    string greeting = 1;
+}
+
+service GreetingService {
+    rpc greeting(stream HelloRequest) returns (HelloResponse);
+}
