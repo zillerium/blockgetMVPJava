@@ -20,5 +20,5 @@ message AuditResponse {
 
 
 service AuditService {
-    rpc Audit(AuditMessage) returns (AuditResponse) {};
+    rpc Audit(AuditRequest) returns (AuditResponse) {};
 }

@@ -43,7 +43,7 @@ public final class ExampleServices {
       "count\030\002 \001(\t\"2\n\014AuditRequest\022\"\n\003msg\030\001 \001(\013" +
       "2\025.example.AuditMessage\"\037\n\rAuditResponse" +
       "\022\016\n\006result\030\001 \001(\t2H\n\014AuditService\0228\n\005Audi" +
-      "t\022\025.example.AuditMessage\032\026.example.Audit" +
+      "t\022\025.example.AuditRequest\032\026.example.Audit" +
       "Response\"\000B\025\n\021com.proto.exampleP\001b\006proto" +
       "3"
     };

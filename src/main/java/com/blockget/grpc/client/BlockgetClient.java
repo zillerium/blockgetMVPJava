@@ -23,7 +23,7 @@ public class BlockgetClient {
 
         AuditRequest auditRequest = AuditRequest.newBuilder().setMsg(am).build();
 
-       AuditResponse resp =  auditClient.audit(am);
+       AuditResponse resp =  auditClient.audit(auditRequest);
        System.out.println(resp.getResult());
 
        System.out.println("shutting client down");

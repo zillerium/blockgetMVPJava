@@ -27,27 +27,27 @@ public final class AuditServiceGrpc {
   public static final String SERVICE_NAME = "example.AuditService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<com.proto.example.AuditMessage,
+  private static volatile io.grpc.MethodDescriptor<com.proto.example.AuditRequest,
       com.proto.example.AuditResponse> getAuditMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "Audit",
-      requestType = com.proto.example.AuditMessage.class,
+      requestType = com.proto.example.AuditRequest.class,
       responseType = com.proto.example.AuditResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.proto.example.AuditMessage,
+  public static io.grpc.MethodDescriptor<com.proto.example.AuditRequest,
       com.proto.example.AuditResponse> getAuditMethod() {
-    io.grpc.MethodDescriptor<com.proto.example.AuditMessage, com.proto.example.AuditResponse> getAuditMethod;
+    io.grpc.MethodDescriptor<com.proto.example.AuditRequest, com.proto.example.AuditResponse> getAuditMethod;
     if ((getAuditMethod = AuditServiceGrpc.getAuditMethod) == null) {
       synchronized (AuditServiceGrpc.class) {
         if ((getAuditMethod = AuditServiceGrpc.getAuditMethod) == null) {
           AuditServiceGrpc.getAuditMethod = getAuditMethod =
-              io.grpc.MethodDescriptor.<com.proto.example.AuditMessage, com.proto.example.AuditResponse>newBuilder()
+              io.grpc.MethodDescriptor.<com.proto.example.AuditRequest, com.proto.example.AuditResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Audit"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.proto.example.AuditMessage.getDefaultInstance()))
+                  com.proto.example.AuditRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   com.proto.example.AuditResponse.getDefaultInstance()))
               .setSchemaDescriptor(new AuditServiceMethodDescriptorSupplier("Audit"))
@@ -87,7 +87,7 @@ public final class AuditServiceGrpc {
 
     /**
      */
-    public void audit(com.proto.example.AuditMessage request,
+    public void audit(com.proto.example.AuditRequest request,
         io.grpc.stub.StreamObserver<com.proto.example.AuditResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getAuditMethod(), responseObserver);
     }
@@ -98,7 +98,7 @@ public final class AuditServiceGrpc {
             getAuditMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                com.proto.example.AuditMessage,
+                com.proto.example.AuditRequest,
                 com.proto.example.AuditResponse>(
                   this, METHODID_AUDIT)))
           .build();
@@ -125,7 +125,7 @@ public final class AuditServiceGrpc {
 
     /**
      */
-    public void audit(com.proto.example.AuditMessage request,
+    public void audit(com.proto.example.AuditRequest request,
         io.grpc.stub.StreamObserver<com.proto.example.AuditResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getAuditMethod(), getCallOptions()), request, responseObserver);
@@ -152,7 +152,7 @@ public final class AuditServiceGrpc {
 
     /**
      */
-    public com.proto.example.AuditResponse audit(com.proto.example.AuditMessage request) {
+    public com.proto.example.AuditResponse audit(com.proto.example.AuditRequest request) {
       return blockingUnaryCall(
           getChannel(), getAuditMethod(), getCallOptions(), request);
     }
@@ -179,7 +179,7 @@ public final class AuditServiceGrpc {
     /**
      */
     public com.google.common.util.concurrent.ListenableFuture<com.proto.example.AuditResponse> audit(
-        com.proto.example.AuditMessage request) {
+        com.proto.example.AuditRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getAuditMethod(), getCallOptions()), request);
     }
@@ -205,7 +205,7 @@ public final class AuditServiceGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_AUDIT:
-          serviceImpl.audit((com.proto.example.AuditMessage) request,
+          serviceImpl.audit((com.proto.example.AuditRequest) request,
               (io.grpc.stub.StreamObserver<com.proto.example.AuditResponse>) responseObserver);
           break;
         default:
