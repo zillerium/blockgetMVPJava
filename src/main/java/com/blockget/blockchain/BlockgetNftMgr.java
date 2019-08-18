@@ -59,7 +59,7 @@ public class BlockgetNftMgr {
      * @param symbol String version of the NFT symbol.
      * @return Transaction confirmation.
      */
-    public TransactionConfirmation issue(String symbol, String cid) {
+    public TransactionConfirmation issue(String symbol, String cid, String account) {
         connectionExample = new BlockgetConnection();
         loginExample = new BlockgetLogin();
         final DCoreApi dcoreApi = connectionExample.connect();
