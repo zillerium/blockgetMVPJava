@@ -53,11 +53,16 @@ func allArticles(w http.ResponseWriter, r *http.Request) {
 
 func addBitData(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+   w .Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+    w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 	var newBitData BitData
 	json.NewDecoder(r.Body).Decode(&newBitData)
+ fmt.Println(r.Body)	
+	fmt.Println("bit data - "+ newBitData.Url)
 	newBitData.ID = strconv.Itoa(len(BitDataArray) + 1)
 	BitDataArray = append(BitDataArray, newBitData)
-	storeBTFS(&newBitData)
+storeBTFS(&newBitData)
 	json.NewEncoder(w).Encode(newBitData)
 	// demo code only
 	// add nft record via gRPC call to Java NFT code
@@ -89,7 +94,7 @@ func handleRequests() {
 	myRouter.HandleFunc("/", homePage)
 	//	myRouter.HandleFunc("/storebtfs", storeBTFS)
 	myRouter.HandleFunc("/getBitData/{id}", getBitData).Methods("GET")
-	myRouter.HandleFunc("/addBitData", addBitData).Methods("POST", "OPTIONS")
+	myRouter.HandleFunc("/addBitData", addBitData).Methods("POST","OPTIONS")
 	// listen on one thread only
 	log.Fatal(http.ListenAndServe(":9090", myRouter))
 
@@ -113,6 +118,7 @@ func storeBTFS(bd *BitData) {
 
 	myurl := bd.Url
 	fmt.Printf("\nurl: %s", myurl)
+	fmt.Printf("\nadding btfs =======", myurl)
 
 	sh := shell.NewShell("localhost:5001")
 	u, _ := url.Parse(myurl)
