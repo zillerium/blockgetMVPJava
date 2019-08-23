@@ -19,18 +19,29 @@ public class AuditServiceImpl  extends AuditServiceGrpc.AuditServiceImplBase {
     public void audit(AuditRequest request, StreamObserver<AuditResponse> responseObserver) {
         String hashcode = request.getMsg().getHashcode();
         String account = request.getMsg().getAccount();
-
+        System.out.println(hashcode);
+        System.out.println(account);
+//String hashcode = "QmZwY1xj27VEfVSApkdHqZiz1LXvHVnWzYax2sdKUYqiVm";
+//String account = "trevor3";
         BlockgetNftMgr bnm = new BlockgetNftMgr();
 
         BlockgetAccount anAccount = new BlockgetAccount();
         Account myAcct = anAccount.getAccountByName(account);
         String accountName = account;
+
         List<NftData<? extends NftModel>> result=bnm.ConfirmNFT(myAcct);
+        System.out.println(result.size());
         for (int i=0;i<result.size();i++) {
             NftModel c = result.get(i).getData();
             List<Object> d = c.values();
-            String hashcodedata = (String) d.get(2);
-            System.out.println("account - " + accountName + " file hash - " + hashcodedata);
+
+            System.out.println(d.size());
+            if (d.size()>2) {
+                String hashcodedata = (String) d.get(2);
+                System.out.println("account - " + accountName + " file hash - " + hashcodedata);
+            } else {
+                System.out.println("error in d size");
+            }
         }
 
         bnm.issue("BGT", hashcode, account);
